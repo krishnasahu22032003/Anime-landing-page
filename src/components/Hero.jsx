@@ -1,124 +1,150 @@
-import { useState, useRef, useEffect } from 'react'
-import Button from './button'
-import { TiLocationArrow } from 'react-icons/ti'
-import { useGSAP } from '@gsap/react'
-import gsap from 'gsap'
-import{ScrollTrigger } from "gsap/ScrollTrigger";
-gsap.registerPlugin(ScrollTrigger)
+
+import { useRef, useState } from 'react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import Button from './button';
+import { TiLocationArrow } from 'react-icons/ti';
+
+const totalVideos = 4;
+
 const Hero = () => {
-    const [currentIndex, setcurrentIndex] = useState(1)
-    const [hasClicked, sethasCLicked] = useState(false)
+  const [currentIndex, setCurrentIndex] = useState(1);
+  const [isFrontA, setIsFrontA] = useState(true);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
-    const [isLoading, setisLoading] = useState(true)
-    const [loadedVideos, setloadedVideos] = useState(0)
+  const videoA = useRef(null);
+  const videoB = useRef(null);
 
-    const totalvideos = 4
-    const nextvidref = useRef(null)
-    const currentvidref = useRef(null);
-    
+  const getVidSrc = (index) => `/videos/hero-${index}.mp4`;
+  const getNextIndex = (index) => (index % totalVideos) + 1;
 
-    const handlevideolaod = () => {
-        console.log("video-loaded")
-        setloadedVideos((prev) => prev + 1)
-    }
-    useEffect(() => {
-     if (loadedVideos >= totalvideos) {
-    setisLoading(false);
-}
-}, [loadedVideos])
-  
-    const handleminividclick = () => {
-        sethasCLicked(true)
-        setcurrentIndex((prevIndex) => (prevIndex % totalvideos) + 1);
-    }
+  const playNext = () => {
+    if (isTransitioning) return;
 
+    const nextIndex = getNextIndex(currentIndex);
+    setIsTransitioning(true);
 
+    const frontVideo = isFrontA ? videoA.current : videoB.current;
+    const backVideo = isFrontA ? videoB.current : videoA.current;
 
-    useGSAP(() => {
-        if (hasClicked&& nextvidref.current) {
-            gsap.set('#next-video', { 
-                opacity: 0,
-            scale: 0.9,
-            width: '100%',
-            height: '100%',
+    backVideo.oncanplay = null;
+    backVideo.src = getVidSrc(nextIndex);
+    backVideo.load();
 
-             })
-            gsap.to('#next-video', {
-                transformOrigin: 'center center',
-                opacity:1,
-                scale: 1,
-                width: '100%',
-                height: '100%',
-                duration: 1,
-                ease: 'power1.inOut',
-                onStart: () => nextvidref.current.play(),
-            })
-            gsap.fromTo('#current-video',
-                 { scale: 1, opacity: 1 },
-                  {
-            scale: 0.7,
-                opacity: 0,
-                duration: 1,
-                ease: 'power1.inOut'
-            })
+    backVideo.oncanplay = () => {
+      backVideo.oncanplay = null;
+      backVideo.play();
+
+      const tl = gsap.timeline({
+        onComplete: () => {
+          setCurrentIndex(nextIndex);
+          setIsFrontA(!isFrontA);
+          setIsTransitioning(false);
+        },
+      });
+
+      tl.to(frontVideo, {
+        opacity: 0,
+        duration: 0.5,
+        ease: 'power1.inOut',
+      });
+
+      tl.fromTo(
+        backVideo,
+        { opacity: 0 },
+        {
+          opacity: 1,
+          duration: 0.5,
+          ease: 'power1.inOut',
         }
-    }, { dependencies: [currentIndex], revertOnUpdate: true })
-    useGSAP(() => {
-        gsap.set('#video-frame', {
-            clipPath: 'polygon(14% 0%, 72% 0%, 90% 90%, 0% 100%)',
-            borderRadius: '0 0 40% 10%'
-        })
-        gsap.from('#video-frame', {
-            clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
-            borderRadius: '0 0 0 0',
-            ease: 'power1.inOut',
-            scrollTrigger: {
-                trigger: '#video-frame',
-                start: 'center center',
-                end: 'bottom center',
-                scrub: true
-            }
-        })
-    })
-    const getvidsrc = (index) => `videos/hero-${index}.mp4`
-    return (
-        <div className='overflow-x-hidden d-dvh w-screen relative'>
-            {/* {isLoading && (
-                <div className='flex-center absolute z-[100] h-dvh w-screen overflow-hidden bg-violet-50'>
-                    <div className='three-body'>
-                        <div className='three-body__dot' ></div>
-                        <div className='three-body__dot' ></div>
-                        <div className='three-body__dot' ></div>
-                    </div>
-                </div>
-            )} */}
-            <div id="video-frame" className='relative  z-10 h-dvh rounded-lg overflow-hidden w-screen bg-black' >
-                <div>
-                    <div className='mask-clip-path absolute-center absolute z-50 size-64 cursor-pointer overflow-hidden rounded-lg' >
-                        <div className='origin-center scale-50 opacity-0 transition-all duration-500 ease-in hover:scale-100 hover:opacity-100' onClick={handleminividclick} >
-                            <video ref={currentvidref}     onError={() => console.error("Error loading video")}   src={getvidsrc((currentIndex % totalvideos) + 1)}loop muted id='current-video' className='size-64 origin-center scale-150 object-cover object-center' onLoadedData={handlevideolaod} />
-                        </div>
-                    </div>
-                    <video ref={nextvidref}   onError={() => console.error("Error loading video")} src={getvidsrc(currentIndex)} loop muted id='next-video' className='absolute-center opacity-0 absolute z-20 size-64 object-cover object-center' onLoadedData={handlevideolaod} />
-                    <video   onError={() => console.error("Error loading video")} src={getvidsrc(currentIndex === totalvideos - 1 ? 1 : currentIndex)}
-                        autoPlay
-                        loop muted
-                         className='absolute left-0 top-0 size-full object-cover  object-full'
-                         onLoadedData={handlevideolaod} />
+      );
+    };
+  };
 
-                </div>
-                <h1 className='special-font hero-heading absolute bottom-5 right-5 z-40 text-blue-75' >G <b>A</b>MING</h1>
-                <div className='absolute   left-0 top-0 z-40 size-full'>
-                    <div className='mt-24 px-5 sm:px-10' >
-                        <h1 className='special-font hero-heading text-blue-100' >REDI <b>F</b> ING</h1>
-                        <p className='mb-5 max-w-64 font-robert-regular text-blue-100' > This is a gaming landing page <br /> play harder</p>
-                        <Button id="watch-trailer" title="watch trailer" leftIcon={<TiLocationArrow />} containerClass="bg-yellow-300 flex-center gap-1" />
-                    </div>
-                </div>
-            </div>
-            <h1 className='special-font hero-heading absolute bottom-5 right-5  text-black' >G <b>A</b>MING</h1>
+  useGSAP(() => {
+    gsap.set('#video-frame', {
+      clipPath: 'polygon(14% 0%, 72% 0%, 90% 90%, 0% 100%)',
+      borderRadius: '0 0 40% 10%',
+    });
+    gsap.from('#video-frame', {
+      clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+      borderRadius: '0 0 0 0',
+      ease: 'power1.inOut',
+      scrollTrigger: {
+        trigger: '#video-frame',
+        start: 'center center',
+        end: 'bottom center',
+        scrub: true,
+      },
+    });
+  }, []);
+
+  return (
+    <div className='relative w-screen h-dvh overflow-x-hidden'>
+      <div
+        id="video-frame"
+        className='relative z-10 w-screen h-dvh overflow-hidden bg-black rounded-lg'
+      >
+        <video
+          ref={videoA}
+          src={getVidSrc(currentIndex)}
+          autoPlay
+          loop
+          muted
+          className='absolute top-0 left-0 size-full object-cover transition-opacity duration-500'
+          style={{ opacity: isFrontA ? 1 : 0 }}
+        />
+        <video
+          ref={videoB}
+          src=""
+          autoPlay
+          loop
+          muted
+          className='absolute top-0 left-0 size-full object-cover transition-opacity duration-500'
+          style={{ opacity: isFrontA ? 0 : 1 }}
+        />
+
+        <div className="absolute-center group z-50 size-64 cursor-pointer overflow-hidden rounded-lg">
+          <div
+            onClick={playNext}
+            className={`opacity-0 scale-90 transition-all duration-300 ease-in-out group-hover:opacity-70 group-hover:scale-100 ${
+              isTransitioning ? 'pointer-events-none' : ''
+            }`}
+          >
+            <video
+              src={getVidSrc(getNextIndex(currentIndex))}
+              loop
+              muted
+              className='size-64 object-cover rounded-lg'
+              playsInline
+            />
+          </div>
         </div>
-    )
-}
 
-export default Hero
+        <h1 className='special-font hero-heading absolute bottom-5 right-10 text-blue-100 text-base sm:text-lg md:text-9xl lg:text-9xl'>
+          D<b>A</b>WN FALLS
+        </h1>
+
+        <div className='absolute left-0 top-0 z-40 size-full'>
+          <div className='mt-24 px-5 sm:px-10'>
+            <h1 className='special-font text-blue-100 hero-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-[1.15] tracking-tight max-w-fit'>
+              UNLEASH <b>R</b>AGE
+            </h1>
+            <p className='mb-5 max-w-64 font-robert-regular text-blue-200'>
+              Flames burn brighter at night<br />
+              Every breath could be your last
+            </p>
+            <Button
+              id="watch-trailer"
+              title="Slay Now"
+              leftIcon={<TiLocationArrow />}
+              containerClass="bg-yellow-300 flex-center gap-1"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Hero;
