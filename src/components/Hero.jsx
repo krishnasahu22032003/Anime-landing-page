@@ -121,7 +121,7 @@ const Hero = () => {
           </div>
         </div>
 
-        <h1 className='special-font hero-heading absolute bottom-5 right-10 text-blue-100 text-base sm:text-lg md:text-9xl lg:text-9xl'>
+        <h1 className='special-font hero-heading absolute bottom-5 right-10 text-black text-base sm:text-lg md:text-9xl lg:text-9xl'>
           D<b>A</b>WN FALLS
         </h1>
 

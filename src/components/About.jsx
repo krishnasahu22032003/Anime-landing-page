@@ -1,7 +1,7 @@
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
-import React from 'react'
 import ScrollTrigger from 'gsap/ScrollTrigger'
+import Animatedtitle from './Animatedtitle'
 gsap.registerPlugin(ScrollTrigger)
 const About = () => {
     useGSAP(()=>{
@@ -25,9 +25,11 @@ clipAnimation.to('.mask-clip-path',{
     <div id='about' className='min-h-screen w-screen' >
       <div className='relative mb-8 mt-36 flex flex-col items-center gap-5' >
         <h2 className='font-general text-sm uppercase md:text-[10px]' >Welcom to world</h2>
-        <div className='mt-5 text-center text-4xl uppercase leading-[.8] md:text-[6rem]'>
-            Disc<b>o</b>ver the world's <br />l <b>a</b>rgest shared adventure
-        </div>
+       <Animatedtitle
+  containerClass="mt-5 !text-black text-center text-4xl sm:text-5xl md:text-6xl font-bold"
+  title="Disc<b>o</b>ver the world's <br />l <b>a</b>rgest shared adventure"
+/>
+      
         <div className='about-subtext ' >
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore, repudiandae?</p>
             <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
