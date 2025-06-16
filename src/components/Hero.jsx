@@ -121,19 +121,19 @@ const Hero = () => {
           </div>
         </div>
 
-        <h1 className='special-font hero-heading absolute bottom-5 right-10 text-black text-base sm:text-lg md:text-9xl lg:text-9xl'>
+        <h1 className='special-font hero-heading absolute bottom-5 right-10 text-blue-100 text-base sm:text-lg md:text-9xl lg:text-9xl'>
           D<b>A</b>WN FALLS
         </h1>
 
         <div className='absolute left-0 top-0 z-40 size-full'>
           <div className='mt-24 px-5 sm:px-10'>
-            <h1 className='special-font text-blue-100 hero-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-[1.15] tracking-tight max-w-fit'>
+            <h1 className='special-font text-blue-100 pt-8 hero-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-[1.15] tracking-tight max-w-fit'>
               UNLEASH <b>R</b>AGE
             </h1>
-            <p className='mb-5 max-w-64 font-robert-regular text-blue-200'>
-              Flames burn brighter at night<br />
-              Every breath could be your last
-            </p>
+          <p className="mb-5 max-w-64 font-robert-regular text-blue-50 leading-relaxed tracking-wide text-sm md:text-base">
+  Flames burn brighter at night<br />
+  Every breath could be your last
+</p>
             <Button
               id="watch-trailer"
               title="Slay Now"
@@ -143,6 +143,9 @@ const Hero = () => {
           </div>
         </div>
       </div>
+          <h1 className='special-font hero-heading absolute bottom-5 right-10 text-black text-base sm:text-lg md:text-9xl lg:text-9xl'>
+          D<b>A</b>WN FALLS
+        </h1>
     </div>
   );
 };

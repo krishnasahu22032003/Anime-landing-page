@@ -27,17 +27,17 @@ clipAnimation.to('.mask-clip-path',{
         <h2 className='font-general text-sm uppercase md:text-[10px]' >Welcom to world</h2>
        <Animatedtitle
   containerClass="mt-5 !text-black text-center text-4xl sm:text-5xl md:text-6xl font-bold"
-  title="Disc<b>o</b>ver the world's <br />l <b>a</b>rgest shared adventure"
-/>
+ title="Un<b>le</b>ash the night’s da<b>r</b>kest <br />legacy in you"
+ />
       
-        <div className='about-subtext ' >
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore, repudiandae?</p>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
-        </div>
+        <div className="about-subtext">
+  <p>In a world where darkness hunts the innocent, only those who endure the night can rise with purpose.</p>
+  <p>Guided by honor, forged by fire — the path of the blade is not chosen, it is earned.</p>
+</div>
       </div>
 <div className='h-dvh w-screen overflow-hidden' id='clip'>
         <div className='mask-clip-path about-image'>
-            <img src="./img/about.webp" alt="background" className='absolute left-0 top-0 size-full object-cover' />
+            <img src="./img/about.jpg" alt="background" className='absolute left-0 top-0 size-full object-cover' />
         </div>
       </div>
     </div>
