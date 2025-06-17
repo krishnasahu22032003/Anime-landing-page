@@ -61,13 +61,11 @@ const Features = () => {
 <section className="bg-black pb-52" >
     <div className="container mx-auto px-3 md:px-10 " >
 <div className="px-5 py-32" >
-<p className="font-display  text-lg text-blue-50" >Lorem ipsum dolor sit amet.</p>
+<p className="font-display  text-lg text-blue-50" >  A world veiled in shadows. A destiny forged in flame.</p>
 
 <p className="max-w-md font-display text-lg text-blue-50 opacity-50" >
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam a exercitationem magnam dolores? Libero, vel.
-     Expedita totam maxime fugiat nihil repudiandae velit ratione iste, reiciendis blanditiis impedit corrupti, unde eum 
-     cumque voluptatem atque veniam? 
-    Modi tenetur accusamus inventore nesciunt magni veniam minus ipsum pariatur libero incidunt ducimus fuga, tempore voluptatum!
+   In an era where demons rule the night, only the blade of the brave can bring back the light. 
+  Embrace your fate, awaken your strength, and step into a realm where every strike echoes through legend.
 </p>
 </div>
 
