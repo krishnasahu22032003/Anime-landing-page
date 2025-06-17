@@ -26,9 +26,9 @@ clipAnimation.to('.mask-clip-path',{
       <div className='relative mb-8 mt-36 flex flex-col items-center gap-5' >
         <h2 className='font-general text-sm uppercase md:text-[10px]' >Welcom to world</h2>
        <Animatedtitle
-  containerClass="mt-5 !text-black text-center text-4xl sm:text-5xl md:text-6xl font-bold"
- title="Un<b>le</b>ash the night’s da<b>r</b>kest <br />legacy in you"
- />
+  containerClass="mt-5 !text-black text-center text-4xl sm:text-5xl md:text-6xl  font-bold"
+  title="UNLEASH THE NIGHT’S D<b>A</b>RKEST <br />LEGACY IN YOU"
+ /> 
       
         <div className="about-subtext">
   <p>In a world where darkness hunts the innocent, only those who endure the night can rise with purpose.</p>

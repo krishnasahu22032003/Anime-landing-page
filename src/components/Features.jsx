@@ -17,7 +17,7 @@ const Bentotilt=({children,className=""})=>{
     const tiltX = (relativeY - 0.5) * 5;
     const tiltY = (relativeX - 0.5) * -5;
 
-    const newTransform = `perspective(700px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(.95, .95, .95)`;
+    const newTransform = `perspective(700px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(.98, .98, .98)`;
     settransformStyle(newTransform);
   }
   const handlemouseleave = (e)=>{
