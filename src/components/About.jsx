@@ -24,13 +24,13 @@ clipAnimation.to('.mask-clip-path',{
   return (
     <div id='about' className='min-h-screen w-screen' >
       <div className='relative mb-8 mt-36 flex flex-col items-center gap-5' >
-        <h2 className='font-general text-sm uppercase md:text-[20px]' >ENTER THE DEMON’S DOMAIN</h2>
+        <h2 className='font-general text-sm uppercase md:text-[25px]' >ENTER THE DEMON’S DOMAIN</h2>
        <Animatedtitle
   containerClass="mt-5 !text-black text-center text-4xl sm:text-5xl md:text-6xl  font-bold"
   title="UNLEASH THE NIGHT’S D<b>A</b>RKEST <br />LEGACY IN YOU"
  /> 
       
-        <div className="about-subtext">
+        <div className="about-subtext text-10px sm:text-15px">
   <p>In a world where darkness hunts the innocent, only those who endure the night can rise with purpose.</p>
   <p>Guided by honor, forged by fire — the path of the blade is not chosen, it is earned.</p>
 </div>

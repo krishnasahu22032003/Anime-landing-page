@@ -93,6 +93,11 @@ body {
       max-width: 34rem;
     }
   }
+  @media only screen and (max-width: 375px) {
+  .iphone-hidden {
+    display: none !important;
+  }
+}
   .contact-clip-path-1 {
     clip-path: polygon(25% 0%, 74% 0, 69% 64%, 34% 73%);
   }
@@ -205,14 +210,14 @@ body {
 
   .about-subtext {
     position: absolute;
-    bottom: -80dvh;
+    bottom: -92dvh;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
     max-width: 24rem;
     text-align: center;
     font-family: 'circular-web', sans-serif;
-    font-size: 1.125rem;
+    font-size: 1.25rem;
   }
 
   @media (min-width: 768px) {
